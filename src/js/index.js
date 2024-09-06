@@ -16,7 +16,7 @@ async function pegarApi(){
       pegarDescription.innerHTML = response.slip.advice 
       
     }catch(error){
-      console.log("algo deu errado")
+      console.log("algo deu errado", error)
     }
 }
 
