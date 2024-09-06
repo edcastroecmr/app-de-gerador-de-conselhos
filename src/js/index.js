@@ -1,28 +1,36 @@
-const pegarBotao = document.querySelector(".advice-update")
-const pegarId = document.querySelector(".advice-id")
-const pegarDesc = document.querySelector(".advice-description")
+// ===========consultar API
+async function consultarApi(){
+    let url = await fetch('https://api.adviceslip.com/advice')
+    let response =  await url.json()
+    console.log(response)
+}
+consultarApi()
+// ===========consultar API
 
-async function PegarDadosDoApi(){
-    try{
-    const url = "https://api.adviceslip.com/advice"
-    const response = await fetch(url)
-    if(!response.ok){
-        throw new Error("Não foi possível pegar os dados")
-    }
-    const respostaJson = await response.json();
-    const adviceId = `Conselho #${respostaJson.slip.id}`;
-    const adviceText = `"${respostaJson.slip.advice}"`;
-    
-    console.log(respostaJson);
-   
-     pegarId.innerText = adviceId;
-     pegarDesc.innerText = adviceText;
+
+async function pegarApi(){
+      try{
+      const url = await fetch('https://api.adviceslip.com/advice');
+      const response = await url.json()
+      pegarIDdoHTML.innerHTML =  `Conselho # ${response.slip.id}`
+      pegarDescription.innerHTML = response.slip.advice 
+      
     }catch(error){
-        console.log("Erro ao tentar buscar as informações da API", error)
+      console.log("algo deu errado")
     }
 }
 
 
+const pegarIDdoHTML = document.querySelector(".advice-id")
+const pegarDescription = document.querySelector(".advice-description")
+const pegarButton = document.querySelector(".advice-update")
+
+
+
+pegarApi()
+pegarButton.addEventListener('click',()=>{
+    pegarApi()
+})
 
 
 
